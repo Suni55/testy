@@ -218,6 +218,24 @@
         .instruction-step::before { content: counter(step-counter); position: absolute; left: 0; top: 10px; width: 28px; height: 28px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
         .cook-btn { display: inline-block; padding: 8px 16px; background: var(--secondary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
+        /* ULUBIONE */
+        .fav-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; transition: transform 0.2s; flex-shrink: 0; }
+        .fav-btn:active { transform: scale(1.3); }
+        .fav-filter-btn { padding: 8px 14px; border-radius: 10px; border: 2px solid var(--border); background: none; color: var(--text-secondary); font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+        .fav-filter-btn.active { border-color: var(--primary); color: var(--primary); background: rgba(255,107,53,0.08); }
+
+        /* MAKRO PRZY POSIŁKU */
+        .meal-macro-row { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+        .meal-macro-pill { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+        .pill-kcal { background: rgba(255,107,53,0.12); color: var(--primary); }
+        .pill-b    { background: rgba(46,196,182,0.12);  color: #2EC4B6; }
+        .pill-w    { background: rgba(255,179,71,0.12);  color: #E09000; }
+        .pill-t    { background: rgba(239,68,68,0.12);   color: #EF4444; }
+        body.dark .pill-kcal { background: rgba(255,107,53,0.2); }
+        body.dark .pill-b    { background: rgba(46,196,182,0.2); }
+        body.dark .pill-w    { background: rgba(255,179,71,0.2); }
+        body.dark .pill-t    { background: rgba(239,68,68,0.2); }
+
         /* SUGESTIE PRZEPISÓW */
         .suggestions-section { margin-top: 24px; }
         .suggestions-title { font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
@@ -260,6 +278,48 @@
         .cooking-step-text { font-size: 18px; line-height: 1.7; }
         .cooking-timer-badge { margin-top: 12px; padding: 10px; background: var(--secondary); color: white; border-radius: 8px; text-align: center; font-weight: 600; font-size: 15px; }
 
+        /* USTAWIENIA */
+        .settings-section { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 14px; box-shadow: var(--shadow); }
+        .settings-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .settings-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .settings-row-label { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+        .settings-row-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .toggle-switch { position: relative; width: 50px; height: 28px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 28px; cursor: pointer; transition: 0.3s; }
+        .toggle-slider:before { content: ''; position: absolute; width: 22px; height: 22px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+        input:checked + .toggle-slider { background: var(--primary); }
+        input:checked + .toggle-slider:before { transform: translateX(22px); }
+        .notif-time-picker { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--text-primary); background: var(--bg-main); cursor: pointer; transition: border-color 0.2s; }
+        .notif-time-picker:focus { outline: none; border-color: var(--primary); }
+        body.dark .notif-time-picker { background: #2E2E2E; border-color: #3A3A3A; color: var(--text-primary); }
+        .notif-status { font-size: 13px; font-weight: 600; padding: 10px 14px; border-radius: 10px; margin-top: 12px; text-align: center; }
+        .notif-status.ok  { background: rgba(46,196,182,0.12); color: #2EC4B6; }
+        .notif-status.err { background: rgba(239,68,68,0.12);  color: #EF4444; }
+        .notif-status.warn { background: rgba(255,179,71,0.12); color: #E09000; }
+
+        /* USTAWIENIA */
+        .settings-section { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 14px; box-shadow: var(--shadow); }
+        .settings-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 700; color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .settings-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
+        .settings-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .settings-row-label { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+        .settings-row-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+        .toggle-switch { position: relative; width: 50px; height: 28px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 28px; cursor: pointer; transition: 0.3s; }
+        .toggle-slider:before { content: ''; position: absolute; width: 22px; height: 22px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+        input:checked + .toggle-slider { background: var(--primary); }
+        input:checked + .toggle-slider:before { transform: translateX(22px); }
+        .notif-time-picker { padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--text-primary); background: var(--bg-main); cursor: pointer; transition: border-color 0.2s; }
+        .notif-time-picker:focus { outline: none; border-color: var(--primary); }
+        body.dark .notif-time-picker { background: #2E2E2E; border-color: #3A3A3A; color: var(--text-primary); }
+        .notif-status { font-size: 13px; font-weight: 600; padding: 10px 14px; border-radius: 10px; margin-top: 12px; text-align: center; }
+        .notif-status.ok   { background: rgba(46,196,182,0.12); color: #2EC4B6; }
+        .notif-status.err  { background: rgba(239,68,68,0.12);  color: #EF4444; }
+        .notif-status.warn { background: rgba(255,179,71,0.12); color: #E09000; }
+
         /* SYNCHRONIZACJA */
         .sync-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .sync-overlay.active { display: flex; }
@@ -294,6 +354,9 @@
         <div class="tab" onclick="switchTab('plan')">🗓️ Plan</div>
         <div class="tab" onclick="switchTab('shopping')">🛒 Zakupy</div>
         <div class="tab" onclick="switchTab('recipes')">📖 Przepisy</div>
+        <div class="tab" onclick="switchTab('settings')">⚙️ Ustawienia</div>
+        <div class="tab" onclick="switchTab('settings')">⚙️ Ustawienia</div>
+        <div class="tab" onclick="switchTab('settings')">⚙️ Ustawienia</div>
     </div>
 
     <div class="content">
@@ -347,9 +410,12 @@
             <div class="card" style="margin-bottom: 14px;">
                 <div style="font-weight: 700; font-size: 14px; margin-bottom: 12px; color: var(--text-primary);">🔍 Filtruj i sortuj</div>
                 
-                <!-- Wyszukiwarka -->
-                <input type="text" id="recipe-search" class="recipe-input" placeholder="Szukaj przepisu..." 
-                    oninput="filterRecipes()" style="margin-bottom: 10px;">
+                <!-- Wyszukiwarka + przycisk ulubionych -->
+                <div style="display:flex;gap:8px;margin-bottom:10px;">
+                    <input type="text" id="recipe-search" class="recipe-input" placeholder="Szukaj przepisu..." 
+                        oninput="filterRecipes()" style="flex:1;">
+                    <button id="fav-filter-btn" class="fav-filter-btn" onclick="toggleFavFilter()">❤️ Ulubione</button>
+                </div>
                 
                 <!-- Filtry -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
@@ -378,6 +444,104 @@
             </div>
             
             <div id="recipes-list"></div>
+        </div>
+    </div>
+
+    <!-- USTAWIENIA -->
+    <div id="tab-settings" class="tab-content">
+        <div class="settings-section">
+            <div class="settings-title">🔔 Powiadomienia</div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-row-label">Przypomnienie o śniadaniu</div>
+                    <div class="settings-row-desc">Powiadomienie rano z dzisiejszym menu</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="notif-toggle" onchange="toggleNotifications(this.checked)">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="settings-row" id="notif-time-row" style="display:none;">
+                <div>
+                    <div class="settings-row-label">Godzina powiadomienia</div>
+                    <div class="settings-row-desc">O której chcesz dostać przypomnienie?</div>
+                </div>
+                <input type="time" class="notif-time-picker" id="notif-time" value="07:30" onchange="saveNotifTime(this.value)">
+            </div>
+            <div id="notif-status"></div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-title">🎨 Wygląd</div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-row-label">Ciemny motyw</div>
+                    <div class="settings-row-desc">Zmień wygląd aplikacji</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-toggle-settings" onchange="toggleDarkMode()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-title">📱 O aplikacji</div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-row-label">Wersja</div>
+                    <div class="settings-row-desc">Plan Posiłków PWA</div>
+                </div>
+                <span style="font-weight:700;color:var(--text-secondary);">1.0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- USTAWIENIA -->
+    <div id="tab-settings" class="tab-content">
+        <div class="settings-section">
+            <div class="settings-title">🔔 Powiadomienia</div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-row-label">Przypomnienie o śniadaniu</div>
+                    <div class="settings-row-desc">Powiadomienie rano z dzisiejszym menu</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="notif-toggle" onchange="toggleNotifications(this.checked)">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="settings-row" id="notif-time-row" style="display:none;">
+                <div>
+                    <div class="settings-row-label">Godzina powiadomienia</div>
+                    <div class="settings-row-desc">O której chcesz dostać przypomnienie?</div>
+                </div>
+                <input type="time" class="notif-time-picker" id="notif-time" value="07:30" onchange="saveNotifTime(this.value)">
+            </div>
+            <div id="notif-status"></div>
+        </div>
+        <div class="settings-section">
+            <div class="settings-title">🎨 Wygląd</div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-row-label">Ciemny motyw</div>
+                    <div class="settings-row-desc">Zmień wygląd aplikacji</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="dark-toggle-settings" onchange="toggleDarkMode()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+        <div class="settings-section">
+            <div class="settings-title">📱 O aplikacji</div>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-row-label">Wersja</div>
+                    <div class="settings-row-desc">Plan Posiłków PWA</div>
+                </div>
+                <span style="font-weight:700;color:var(--text-secondary);">1.0</span>
+            </div>
         </div>
     </div>
 
@@ -428,6 +592,7 @@
     let ownedAmounts   = JSON.parse(localStorage.getItem('ownedAmounts')   || '{}');
     let customProducts = JSON.parse(localStorage.getItem('customProducts') || '[]');
     let recipeHistory  = JSON.parse(localStorage.getItem('recipeHistory')  || '{}');
+    let favorites      = JSON.parse(localStorage.getItem('favorites')      || '[]');
     // recipeHistory: { recipeName: lastUsedTimestamp }
 
     function savePlan(plan) {
@@ -441,6 +606,7 @@
     function saveOwnedAmounts(obj)   { localStorage.setItem('ownedAmounts',   JSON.stringify(obj)); }
     function saveCustomProducts(arr) { localStorage.setItem('customProducts', JSON.stringify(arr)); }
     function saveRecipeHistory(obj)  { localStorage.setItem('recipeHistory',  JSON.stringify(obj)); }
+    function saveFavorites(arr)      { localStorage.setItem('favorites',      JSON.stringify(arr)); }
 
     // Aktualizuj historię gdy plan się zmienia
     function updateRecipeHistory(plan) {
@@ -756,12 +922,13 @@
     }
 
     function switchTab(name) {
-        document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['today','plan','shopping','recipes'][i] === name));
+        document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['today','plan','shopping','recipes','settings'][i] === name));
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.getElementById('tab-' + name).classList.add('active');
         if (name === 'shopping') updateShoppingList();
         if (name === 'recipes')  renderRecipes();
         if (name === 'today')    renderToday();
+        if (name === 'settings') initSettingsTab();
     }
 
     // ─── DZISIAJ ───────────────────────────────────────────────
@@ -786,10 +953,10 @@
                 <div class="meal-card-header"><div class="meal-icon">${icons[meal.id]}</div><div class="meal-time">${mealNames[meal.id]}</div></div>
                 <div class="person-meal"><div class="person-label">Ona</div>
                     <div class="recipe-pill ${p1?'':'empty'}" ${p1?`onclick="goToRecipe('${p1.replace(/'/g,"\\'")}')"`:''}>
-                        ${p1||'Nie zaplanowano'}</div></div>
+                        ${p1||'Nie zaplanowano'}${p1?macroPills(p1):''}</div></div>
                 <div class="person-meal"><div class="person-label">On</div>
                     <div class="recipe-pill ${p2?'':'empty'}" ${p2?`onclick="goToRecipe('${p2.replace(/'/g,"\\'")}')"`:''}>
-                        ${p2||'Nie zaplanowano'}</div></div>
+                        ${p2||'Nie zaplanowano'}${p2?macroPills(p2):''}</div></div>
             </div>`;
         });
 
@@ -866,7 +1033,7 @@
                                 </div>
                                 <div class="autocomplete-wrapper">
                                     ${v1 ? 
-                                        `<div class="recipe-display" onclick="clearRecipe('${k1}')" title="Kliknij aby zmienić">${v1}</div>` :
+                                        `<div class="recipe-display" onclick="clearRecipe('${k1}')" title="Kliknij aby zmienić">${v1}${macroPills(v1)}</div>` :
                                         `<input type="text" id="inp-${k1}" class="recipe-input" value="" placeholder="Wpisz lub wybierz..."
                                             oninput="onRecipeInput('${k1}',this.value)" onfocus="showAC('${k1}',this.value)" onblur="hideACDelayed('${k1}')" autocomplete="off">`
                                     }
@@ -880,7 +1047,7 @@
                                 </div>
                                 <div class="autocomplete-wrapper">
                                     ${v2 ?
-                                        `<div class="recipe-display" onclick="clearRecipe('${k2}')" title="Kliknij aby zmienić">${v2}</div>` :
+                                        `<div class="recipe-display" onclick="clearRecipe('${k2}')" title="Kliknij aby zmienić">${v2}${macroPills(v2)}</div>` :
                                         `<input type="text" id="inp-${k2}" class="recipe-input" value="" placeholder="Wpisz lub wybierz..."
                                             oninput="onRecipeInput('${k2}',this.value)" onfocus="showAC('${k2}',this.value)" onblur="hideACDelayed('${k2}')" autocomplete="off">`
                                     }
@@ -1370,6 +1537,36 @@
     }
 
     // ─── PRZEPISY ──────────────────────────────────────────────
+    // ─── ULUBIONE ──────────────────────────────────────────────
+    let showOnlyFavorites = false;
+
+    function toggleFavorite(name, event) {
+        event.stopPropagation();
+        const idx = favorites.indexOf(name);
+        if (idx > -1) favorites.splice(idx, 1);
+        else favorites.push(name);
+        saveFavorites(favorites);
+        filterRecipes();
+    }
+
+    function toggleFavFilter() {
+        showOnlyFavorites = !showOnlyFavorites;
+        document.getElementById('fav-filter-btn').classList.toggle('active', showOnlyFavorites);
+        filterRecipes();
+    }
+
+    // ─── MAKRO POMOCNIK ────────────────────────────────────────
+    function macroPills(name) {
+        const n = NUTRITION_DATA[name];
+        if (!n) return '';
+        return `<div class="meal-macro-row">
+            <span class="meal-macro-pill pill-kcal">🔥 ${Math.round(n.kcal)} kcal</span>
+            <span class="meal-macro-pill pill-b">B ${n.b}g</span>
+            <span class="meal-macro-pill pill-w">W ${n.w}g</span>
+            <span class="meal-macro-pill pill-t">T ${n.t}g</span>
+        </div>`;
+    }
+
     function renderRecipes() {
         // Panel filtrów jest już w HTML, więc tylko renderujemy listę
         displayRecipes(PRZEPISY_DATA.przepisy);
@@ -1382,6 +1579,8 @@
         const sortBy = document.getElementById('sort-recipes')?.value || 'alpha';
         
         let filtered = PRZEPISY_DATA.przepisy.filter(p => {
+            // Filtr ulubionych
+            if (showOnlyFavorites && !favorites.includes(p)) return false;
             // Filtr wyszukiwania
             if (searchQuery && !p.toLowerCase().includes(searchQuery)) return false;
             
@@ -1428,9 +1627,11 @@
         el.innerHTML = list.map((name, i) => {
             const ings = PRZEPISY_DATA.skladniki[name]||[];
             const steps = PRZEPISY_DATA.instrukcje[name]||[];
+            const isFav = favorites.includes(name);
             return `<div class="recipe-card">
                 <div class="recipe-header" onclick="toggleRecipe(${i})">
                     <div class="recipe-title">${name}</div>
+                    <button class="fav-btn" onclick="toggleFavorite('${name.replace(/'/g,"\'")}', event)" title="${isFav ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'}">${isFav ? '❤️' : '🤍'}</button>
                     <div class="recipe-arrow" id="arr-${i}">▼</div>
                 </div>
                 <div class="recipe-content" id="rc-${i}">
@@ -1497,6 +1698,232 @@
         document.body.style.overflow='';
     }
 
+    // ─── POWIADOMIENIA ────────────────────────────────────────
+    const NOTIF_KEY = 'notifEnabled';
+    const NOTIF_TIME_KEY = 'notifTime';
+
+    function initSettingsTab() {
+        const enabled = localStorage.getItem(NOTIF_KEY) === 'true';
+        const time = localStorage.getItem(NOTIF_TIME_KEY) || '07:30';
+        const toggle = document.getElementById('notif-toggle');
+        const timeRow = document.getElementById('notif-time-row');
+        const timePicker = document.getElementById('notif-time');
+        const darkToggle = document.getElementById('dark-toggle-settings');
+
+        if (toggle) toggle.checked = enabled;
+        if (timePicker) timePicker.value = time;
+        if (timeRow) timeRow.style.display = enabled ? 'flex' : 'none';
+        if (darkToggle) darkToggle.checked = document.body.classList.contains('dark');
+
+        updateNotifStatus();
+    }
+
+    function updateNotifStatus() {
+        const el = document.getElementById('notif-status');
+        if (!el) return;
+        const enabled = localStorage.getItem(NOTIF_KEY) === 'true';
+        if (!enabled) { el.innerHTML = ''; return; }
+
+        if (!('Notification' in window)) {
+            el.className = 'notif-status err';
+            el.textContent = '❌ Twoja przeglądarka nie obsługuje powiadomień';
+        } else if (Notification.permission === 'granted') {
+            const time = localStorage.getItem(NOTIF_TIME_KEY) || '07:30';
+            el.className = 'notif-status ok';
+            el.textContent = `✅ Powiadomienia włączone — codziennie o ${time}`;
+        } else if (Notification.permission === 'denied') {
+            el.className = 'notif-status err';
+            el.textContent = '❌ Powiadomienia zablokowane — zmień w ustawieniach Safari';
+        } else {
+            el.className = 'notif-status warn';
+            el.textContent = '⏳ Oczekuje na zgodę...';
+        }
+    }
+
+    async function toggleNotifications(enabled) {
+        const timeRow = document.getElementById('notif-time-row');
+        if (timeRow) timeRow.style.display = enabled ? 'flex' : 'none';
+
+        if (!enabled) {
+            localStorage.setItem(NOTIF_KEY, 'false');
+            updateNotifStatus();
+            return;
+        }
+
+        if (!('Notification' in window)) {
+            showToast('❌ Ta przeglądarka nie obsługuje powiadomień');
+            document.getElementById('notif-toggle').checked = false;
+            return;
+        }
+
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
+            localStorage.setItem(NOTIF_KEY, 'true');
+            scheduleNotifications();
+            showToast('✅ Powiadomienia włączone!');
+        } else {
+            localStorage.setItem(NOTIF_KEY, 'false');
+            document.getElementById('notif-toggle').checked = false;
+            showToast('❌ Nie przyznano zgody na powiadomienia');
+        }
+        updateNotifStatus();
+    }
+
+    function saveNotifTime(val) {
+        localStorage.setItem(NOTIF_TIME_KEY, val);
+        scheduleNotifications();
+        updateNotifStatus();
+        showToast(`⏰ Godzina powiadomień: ${val}`);
+    }
+
+    function scheduleNotifications() {
+        // Planujemy następne powiadomienie przez SW
+        if (!('serviceWorker' in navigator)) return;
+        navigator.serviceWorker.ready.then(reg => {
+            const time = localStorage.getItem(NOTIF_TIME_KEY) || '07:30';
+            const [h, m] = time.split(':').map(Number);
+            const now = new Date();
+            const next = new Date();
+            next.setHours(h, m, 0, 0);
+            if (next <= now) next.setDate(next.getDate() + 1);
+            const delay = next.getTime() - now.getTime();
+
+            // Wyślij wiadomość do SW z czasem
+            reg.active?.postMessage({
+                type: 'SCHEDULE_NOTIF',
+                delay,
+                title: '🍳 Dzień dobry! Co na śniadanie?',
+                body: getBreakfastText(),
+            });
+        });
+    }
+
+    function getBreakfastText() {
+        const dayMap = {0:'sun',1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat'};
+        const dayId = dayMap[new Date().getDay()];
+        const p1 = currentPlan[`${dayId}-breakfast-person1`];
+        const p2 = currentPlan[`${dayId}-breakfast-person2`];
+        if (p1 && p2 && p1 !== p2) return `Ona: ${p1} | On: ${p2}`;
+        if (p1) return p1;
+        if (p2) return p2;
+        return 'Zajrzyj do planu posiłków';
+    }
+
+    // Uruchom schedule przy starcie jeśli włączone
+    function initNotifications() {
+        if (localStorage.getItem(NOTIF_KEY) === 'true' && Notification.permission === 'granted') {
+            scheduleNotifications();
+        }
+    }
+
+    // ─── POWIADOMIENIA ────────────────────────────────────────
+    const NOTIF_KEY = 'notifEnabled';
+    const NOTIF_TIME_KEY = 'notifTime';
+
+    function initSettingsTab() {
+        const enabled = localStorage.getItem(NOTIF_KEY) === 'true';
+        const time = localStorage.getItem(NOTIF_TIME_KEY) || '07:30';
+        const toggle = document.getElementById('notif-toggle');
+        const timeRow = document.getElementById('notif-time-row');
+        const timePicker = document.getElementById('notif-time');
+        const darkToggle = document.getElementById('dark-toggle-settings');
+        if (toggle) toggle.checked = enabled;
+        if (timePicker) timePicker.value = time;
+        if (timeRow) timeRow.style.display = enabled ? 'flex' : 'none';
+        if (darkToggle) darkToggle.checked = document.body.classList.contains('dark');
+        updateNotifStatus();
+    }
+
+    function updateNotifStatus() {
+        const el = document.getElementById('notif-status');
+        if (!el) return;
+        const enabled = localStorage.getItem(NOTIF_KEY) === 'true';
+        if (!enabled) { el.innerHTML = ''; return; }
+        if (!('Notification' in window)) {
+            el.className = 'notif-status err';
+            el.textContent = '❌ Twoja przeglądarka nie obsługuje powiadomień';
+        } else if (Notification.permission === 'granted') {
+            const time = localStorage.getItem(NOTIF_TIME_KEY) || '07:30';
+            el.className = 'notif-status ok';
+            el.textContent = `✅ Powiadomienia włączone — codziennie o ${time}`;
+        } else if (Notification.permission === 'denied') {
+            el.className = 'notif-status err';
+            el.textContent = '❌ Powiadomienia zablokowane — zmień w ustawieniach Safari';
+        } else {
+            el.className = 'notif-status warn';
+            el.textContent = '⏳ Oczekuje na zgodę...';
+        }
+    }
+
+    async function toggleNotifications(enabled) {
+        const timeRow = document.getElementById('notif-time-row');
+        if (timeRow) timeRow.style.display = enabled ? 'flex' : 'none';
+        if (!enabled) {
+            localStorage.setItem(NOTIF_KEY, 'false');
+            updateNotifStatus();
+            return;
+        }
+        if (!('Notification' in window)) {
+            showToast('❌ Ta przeglądarka nie obsługuje powiadomień');
+            document.getElementById('notif-toggle').checked = false;
+            return;
+        }
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
+            localStorage.setItem(NOTIF_KEY, 'true');
+            scheduleNotification();
+            showToast('✅ Powiadomienia włączone!');
+        } else {
+            localStorage.setItem(NOTIF_KEY, 'false');
+            document.getElementById('notif-toggle').checked = false;
+            showToast('❌ Nie przyznano zgody na powiadomienia');
+        }
+        updateNotifStatus();
+    }
+
+    function saveNotifTime(val) {
+        localStorage.setItem(NOTIF_TIME_KEY, val);
+        scheduleNotification();
+        updateNotifStatus();
+        showToast(`⏰ Godzina powiadomień: ${val}`);
+    }
+
+    function getBreakfastText() {
+        const dayMap = {0:'sun',1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat'};
+        const dayId = dayMap[new Date().getDay()];
+        const p1 = currentPlan[`${dayId}-breakfast-person1`];
+        const p2 = currentPlan[`${dayId}-breakfast-person2`];
+        if (p1 && p2 && p1 !== p2) return `Ona: ${p1} | On: ${p2}`;
+        if (p1) return p1;
+        if (p2) return p2;
+        return 'Zajrzyj do planu posiłków';
+    }
+
+    function scheduleNotification() {
+        if (!('serviceWorker' in navigator) || Notification.permission !== 'granted') return;
+        const time = localStorage.getItem(NOTIF_TIME_KEY) || '07:30';
+        const [h, m] = time.split(':').map(Number);
+        const now = new Date();
+        const next = new Date();
+        next.setHours(h, m, 0, 0);
+        if (next <= now) next.setDate(next.getDate() + 1);
+        const delay = next.getTime() - now.getTime();
+        navigator.serviceWorker.ready.then(reg => {
+            reg.active?.postMessage({
+                type: 'SCHEDULE_NOTIF',
+                delay,
+                title: '🍳 Dzień dobry! Co na śniadanie?',
+                body: getBreakfastText(),
+            });
+        });
+    }
+
+    function initNotifications() {
+        if (localStorage.getItem(NOTIF_KEY) === 'true' && Notification.permission === 'granted') {
+            scheduleNotification();
+        }
+    }
+
     // ─── INIT ──────────────────────────────────────────────────
     // Jednorazowe czyszczenie starych danych synchronizacji
     if (localStorage.getItem('syncCode')) {
@@ -1505,6 +1932,7 @@
     }
     
     initDarkMode();
+    initNotifications();
     updateRecipeHistory(currentPlan);
     renderToday();
     renderPlan();
@@ -1514,7 +1942,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('./sw.js')
                     .then(reg => console.log('SW zarejestrowany:', reg.scope))
                     .catch(err => console.log('SW błąd:', err));
             });
