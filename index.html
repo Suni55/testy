@@ -1236,6 +1236,11 @@
         'Jogurt naturalny bez laktozy': 'Jogurt naturalny',
     };
 
+    // Przeliczniki jednostek na gramy/ml
+    const UNIT_TO_GRAMS = {
+        'ząbki': { name: 'Czosnek', gramsPerUnit: 5 },
+    };
+
     function normalizeIngredient(name) {
         return INGREDIENT_ALIASES[name] || name;
     }
@@ -1245,9 +1250,19 @@
         Object.values(currentPlan).forEach(name => {
             (PRZEPISY_DATA.skladniki[name]||[]).forEach(i => {
                 const normalizedName = normalizeIngredient(i.skladnik);
-                const k = `${normalizedName}|||${i.jednostka}`;
-                if (!ing[k]) ing[k] = { name: normalizedName, amount: 0, unit: i.jednostka };
-                ing[k].amount += i.ilosc;
+
+                // Przelicz niestandardowe jednostki na gramy
+                let amount = i.ilosc;
+                let unit = i.jednostka;
+                const conv = UNIT_TO_GRAMS[unit];
+                if (conv && normalizedName === conv.name) {
+                    amount = i.ilosc * conv.gramsPerUnit;
+                    unit = 'g';
+                }
+
+                const k = `${normalizedName}|||${unit}`;
+                if (!ing[k]) ing[k] = { name: normalizedName, amount: 0, unit };
+                ing[k].amount += amount;
             });
         });
         return Object.values(ing);

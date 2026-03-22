@@ -1,14 +1,14 @@
-const CACHE_NAME = 'plan-posilkow-v1';
+const CACHE_NAME = 'plan-posilkow-v2';
 
-// Pliki do zcache'owania przy instalacji
+// Używamy ścieżek relatywnych - działa na każdym hostingu (też /testy/)
 const PRECACHE_URLS = [
-  '/index.html',
-  '/manifest.json',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
 ];
 
-// Instalacja - cache pliki statyczne
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -17,7 +17,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// Aktywacja - usuń stare cache
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -28,8 +27,6 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch - najpierw sieć, fallback na cache (network-first)
-// Dla czcionek Google i zewnętrznych skryptów - cache-first
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
