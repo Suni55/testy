@@ -218,28 +218,22 @@
         .instruction-step::before { content: counter(step-counter); position: absolute; left: 0; top: 10px; width: 28px; height: 28px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
         .cook-btn { display: inline-block; padding: 8px 16px; background: var(--secondary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
-        /* KALENDARZ */
-        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
-        .cal-dow  { text-align:center; font-size:11px; font-weight:700; color:var(--text-secondary); padding:4px 0; text-transform:uppercase; }
-        .cal-day  { aspect-ratio:1; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; border:2px solid transparent; position:relative; font-size:12px; font-weight:600; min-height:34px; }
-        .cal-day:hover { border-color:var(--primary); background:rgba(255,107,53,0.07); }
-        .cal-day.today { background:rgba(255,107,53,0.12); border-color:var(--primary); color:var(--primary); }
-        .cal-day.selected { background:var(--primary); color:white; border-color:var(--primary); }
-        .cal-day.has-meals::after { content:''; position:absolute; bottom:4px; width:5px; height:5px; border-radius:50%; background:var(--secondary); }
-        .cal-day.selected::after { background:white; }
-        .cal-day.other-month { opacity:0.3; }
-        .cal-day.empty { cursor:default; }
-
-        /* KALENDARZ */
-        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
-        .cal-dow  { text-align:center; font-size:11px; font-weight:700; color:var(--text-secondary); padding:4px 0; text-transform:uppercase; }
-        .cal-day  { aspect-ratio:1; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; border:2px solid transparent; position:relative; font-size:12px; font-weight:600; min-height:34px; }
-        .cal-day:hover { border-color:var(--primary); background:rgba(255,107,53,0.07); }
-        .cal-day.today { background:rgba(255,107,53,0.12); border-color:var(--primary); color:var(--primary); }
-        .cal-day.selected { background:var(--primary); color:white; border-color:var(--primary); }
-        .cal-day.has-meals::after { content:''; position:absolute; bottom:4px; width:5px; height:5px; border-radius:50%; background:var(--secondary); }
-        .cal-day.selected::after { background:white; }
-        .cal-day.other-month { opacity:0.3; }
+        /* KALENDARZ - poziomy pasek */
+        .cal-strip-wrap { display:flex; align-items:center; gap:6px; }
+        .cal-strip-btn { background:none; border:none; font-size:20px; color:var(--text-secondary); cursor:pointer; padding:4px 8px; flex-shrink:0; transition:color 0.2s; }
+        .cal-strip-btn:hover { color:var(--primary); }
+        .cal-strip { display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; scrollbar-width:none; flex:1; padding:4px 0; }
+        .cal-strip::-webkit-scrollbar { display:none; }
+        .cal-strip-day { display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; flex-shrink:0; scroll-snap-align:start; min-width:40px; }
+        .cal-strip-dow { font-size:11px; font-weight:700; color:var(--text-secondary); text-transform:uppercase; }
+        .cal-strip-num { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; border:2px solid transparent; transition:all 0.15s; position:relative; }
+        .cal-strip-num:hover { border-color:var(--primary); background:rgba(255,107,53,0.07); }
+        .cal-strip-num.today { background:rgba(255,107,53,0.12); border-color:var(--primary); color:var(--primary); }
+        .cal-strip-num.selected { background:var(--primary); color:white; border-color:var(--primary); }
+        .cal-strip-num.has-meals::after { content:''; position:absolute; bottom:2px; width:5px; height:5px; border-radius:50%; background:var(--secondary); }
+        .cal-strip-num.selected.has-meals::after { background:white; }
+        .cal-strip-label { font-size:11px; font-weight:600; color:var(--primary); opacity:0; transition:opacity 0.2s; }
+        .cal-strip-day.selected-day .cal-strip-label { opacity:1; }
 
         /* ULUBIONE */
         .fav-btn { background: none; border: none; font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; transition: transform 0.2s; flex-shrink: 0; }
@@ -390,14 +384,17 @@
 
         <!-- PLAN -->
         <div id="tab-plan" class="tab-content">
-            <!-- Nawigacja kalendarza -->
-            <div class="card" style="margin-bottom:14px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-                    <button class="btn-day btn-copy-day" onclick="calPrevMonth()" style="font-size:18px;padding:6px 14px;">‹</button>
-                    <div id="cal-month-label" style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:700;color:var(--primary);"></div>
-                    <button class="btn-day btn-copy-day" onclick="calNextMonth()" style="font-size:18px;padding:6px 14px;">›</button>
+            <!-- Pasek tygodnia -->
+            <div style="background:var(--bg-card);padding:12px 16px 10px;margin-bottom:14px;border-radius:16px;box-shadow:var(--shadow);">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <div id="cal-week-label" style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--text-secondary);"></div>
+                    <div style="display:flex;gap:4px;">
+                        <button class="cal-strip-btn" onclick="calPrevWeek()">‹</button>
+                        <button class="cal-strip-btn" style="font-size:13px;padding:4px 8px;" onclick="calGoToday()">Dziś</button>
+                        <button class="cal-strip-btn" onclick="calNextWeek()">›</button>
+                    </div>
                 </div>
-                <div id="cal-grid"></div>
+                <div class="cal-strip" id="cal-strip"></div>
             </div>
             <!-- Panel dnia -->
             <div id="plan-container"></div>
@@ -735,10 +732,9 @@
     }
 
     // ─── NAWIGACJA TYGODNIA ────────────────────────────────────
-    // ─── KALENDARZ ──────────────────────────────────────────────
-    let calYear  = new Date().getFullYear();
-    let calMonth = new Date().getMonth(); // 0-11
-    let selectedDate = null; // 'YYYY-MM-DD' aktualnie otwarty dzień
+    // ─── KALENDARZ - pasek tygodnia ─────────────────────────────
+    let calWeekOffset = 0; // 0 = bieżący tydzień, +1/-1 = następny/poprzedni
+    let selectedDate = null; // 'YYYY-MM-DD'
 
     function dateKey(y, m, d) {
         return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
@@ -749,59 +745,96 @@
         return dateKey(n.getFullYear(), n.getMonth(), n.getDate());
     }
 
-    function calPrevMonth() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
-    function calNextMonth() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
+    function getWeekDays(offset) {
+        // Zwróć tablicę 7 dat (Pn-Nd) dla danego tygodnia
+        const now = new Date();
+        const dow = now.getDay(); // 0=nd, 1=pn...
+        const monday = new Date(now);
+        monday.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1) + offset * 7);
+        monday.setHours(0,0,0,0);
+        return Array.from({length:7}, (_, i) => {
+            const d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            return d;
+        });
+    }
+
+    function calPrevWeek() { calWeekOffset--; renderCalendar(); }
+    function calNextWeek() { calWeekOffset++; renderCalendar(); }
+    function calGoToday()  { calWeekOffset = 0; selectedDate = todayKey(); renderCalendar(); }
 
     function renderCalendar() {
-        const label = document.getElementById('cal-month-label');
-        const grid  = document.getElementById('cal-grid');
-        if (!label || !grid) return;
+        const strip = document.getElementById('cal-strip');
+        const label = document.getElementById('cal-week-label');
+        if (!strip) return;
 
-        const months = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
-                        'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
-        label.textContent = `${months[calMonth]} ${calYear}`;
-
-        const dows = ['Pn','Wt','Śr','Cz','Pt','So','Nd'];
-        let html = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
-
-        const firstDay = new Date(calYear, calMonth, 1);
-        const lastDay  = new Date(calYear, calMonth+1, 0);
-        const startDow = (firstDay.getDay() + 6) % 7; // 0=Pn
+        const days  = getWeekDays(calWeekOffset);
         const today = todayKey();
+        const dows  = ['Pn','Wt','Śr','Cz','Pt','So','Nd'];
+        const months = ['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
 
-        // Dni z poprzedniego miesiąca
-        for (let i = 0; i < startDow; i++) {
-            const d = new Date(calYear, calMonth, 1 - startDow + i);
-            const k = dateKey(d.getFullYear(), d.getMonth(), d.getDate());
-            const hasMeals = Object.keys(currentPlan).some(key => key.startsWith(k + '-'));
-            html += `<div class="cal-day other-month ${hasMeals?'has-meals':''}" onclick="selectDay('${k}')">${d.getDate()}</div>`;
+        // Etykieta tygodnia
+        if (label) {
+            const first = days[0], last = days[6];
+            if (first.getMonth() === last.getMonth()) {
+                label.textContent = `${first.getDate()}–${last.getDate()} ${months[first.getMonth()]} ${first.getFullYear()}`;
+            } else {
+                label.textContent = `${first.getDate()} ${months[first.getMonth()]} – ${last.getDate()} ${months[last.getMonth()]}`;
+            }
         }
 
-        // Dni bieżącego miesiąca
-        for (let d = 1; d <= lastDay.getDate(); d++) {
-            const k = dateKey(calYear, calMonth, d);
+        strip.innerHTML = days.map((d, i) => {
+            const k = dateKey(d.getFullYear(), d.getMonth(), d.getDate());
             const isToday    = k === today;
             const isSelected = k === selectedDate;
             const hasMeals   = Object.keys(currentPlan).some(key => key.startsWith(k + '-'));
-            const cls = [
-                'cal-day',
+            const numCls = ['cal-strip-num',
                 isToday    ? 'today'    : '',
                 isSelected ? 'selected' : '',
                 hasMeals   ? 'has-meals': '',
             ].filter(Boolean).join(' ');
-            html += `<div class="${cls}" onclick="selectDay('${k}')">${d}</div>`;
+            return `<div class="cal-strip-day ${isSelected ? 'selected-day' : ''}" onclick="selectDay('${k}')">
+                <div class="cal-strip-dow">${dows[i]}</div>
+                <div class="${numCls}">${d.getDate()}</div>
+            </div>`;
+        }).join('');
+
+        // Scroll do wybranego dnia
+        if (selectedDate) {
+            setTimeout(() => {
+                const sel = strip.querySelector('.selected-day');
+                if (sel) sel.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+            }, 50);
         }
 
-        grid.innerHTML = html;
-
-        // Renderuj panel wybranego dnia
-        if (selectedDate) renderDayPanel(selectedDate);
-        else document.getElementById('plan-container').innerHTML =
-            '<div class="empty-state" style="padding:30px 0;"><div class="empty-icon">📅</div><div>Wybierz dzień z kalendarza</div></div>';
+        // Renderuj panel dnia
+        if (selectedDate) {
+            renderDayPanel(selectedDate);
+        } else {
+            // Domyślnie zaznacz dzisiaj
+            selectedDate = today;
+            renderCalendar();
+        }
     }
 
     function selectDay(k) {
         selectedDate = k;
+        // Jeśli wybrany dzień jest poza aktualnym tygodniem, przeskocz do właściwego
+        const days = getWeekDays(calWeekOffset);
+        const keys = days.map(d => dateKey(d.getFullYear(), d.getMonth(), d.getDate()));
+        if (!keys.includes(k)) {
+            // Oblicz offset tygodnia dla wybranej daty
+            const selDate = new Date(k + 'T00:00:00');
+            const today = new Date();
+            const todayMon = new Date(today);
+            const dow = today.getDay();
+            todayMon.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+            todayMon.setHours(0,0,0,0);
+            const selMon = new Date(selDate);
+            const selDow = selDate.getDay();
+            selMon.setDate(selDate.getDate() - (selDow === 0 ? 6 : selDow - 1));
+            calWeekOffset = Math.round((selMon - todayMon) / (7 * 86400000));
+        }
         renderCalendar();
     }
 
