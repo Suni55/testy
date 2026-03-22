@@ -219,9 +219,9 @@
         .cook-btn { display: inline-block; padding: 8px 16px; background: var(--secondary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
 
         /* KALENDARZ */
-        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
         .cal-dow  { text-align:center; font-size:11px; font-weight:700; color:var(--text-secondary); padding:4px 0; text-transform:uppercase; }
-        .cal-day  { aspect-ratio:1; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; border:2px solid transparent; position:relative; font-size:13px; font-weight:600; min-height:40px; }
+        .cal-day  { aspect-ratio:1; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; border:2px solid transparent; position:relative; font-size:12px; font-weight:600; min-height:34px; }
         .cal-day:hover { border-color:var(--primary); background:rgba(255,107,53,0.07); }
         .cal-day.today { background:rgba(255,107,53,0.12); border-color:var(--primary); color:var(--primary); }
         .cal-day.selected { background:var(--primary); color:white; border-color:var(--primary); }
@@ -231,9 +231,9 @@
         .cal-day.empty { cursor:default; }
 
         /* KALENDARZ */
-        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
         .cal-dow  { text-align:center; font-size:11px; font-weight:700; color:var(--text-secondary); padding:4px 0; text-transform:uppercase; }
-        .cal-day  { aspect-ratio:1; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; border:2px solid transparent; position:relative; font-size:13px; font-weight:600; min-height:40px; }
+        .cal-day  { aspect-ratio:1; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:all 0.15s; border:2px solid transparent; position:relative; font-size:12px; font-weight:600; min-height:34px; }
         .cal-day:hover { border-color:var(--primary); background:rgba(255,107,53,0.07); }
         .cal-day.today { background:rgba(255,107,53,0.12); border-color:var(--primary); color:var(--primary); }
         .cal-day.selected { background:var(--primary); color:white; border-color:var(--primary); }
@@ -1112,8 +1112,9 @@
         const list = document.getElementById('ac-' + key);
         if (!list) return;
         
-        // Wyciągnij typ posiłku z klucza (format: day-mealType-person)
-        const mealType = key.split('-')[1]; // np. "breakfast", "lunch", "dinner"
+        // Klucz: '2026-03-22-breakfast-person1' - mealType jest na indeksie 3
+        const parts = key.split('-');
+        const mealType = parts[3]; // breakfast/lunch/dinner
         
         // Filtruj przepisy według typu posiłku
         let availableRecipes = PRZEPISY_DATA.przepisy;
@@ -1139,7 +1140,9 @@
     function pickRecipe(key, val) {
         currentPlan[key] = val;
         savePlan(currentPlan);
-        renderPlan();
+        // Odśwież tylko panel dnia, nie cały kalendarz
+        if (selectedDate) renderDayPanel(selectedDate);
+        renderCalendar();
         hideAC(key);
     }
     
@@ -1151,8 +1154,8 @@
         if (recipe) {
             currentPlan[keyTo] = recipe;
             savePlan(currentPlan);
-            renderPlan();
-            
+            if (selectedDate) renderDayPanel(selectedDate);
+            renderCalendar();
             const fromLabel = fromPerson === 'person1' ? 'Ona' : 'On';
             const toLabel = toPerson === 'person1' ? 'Ona' : 'On';
             showToast(`✅ Skopiowano ${fromLabel} → ${toLabel}: ${recipe}`);
@@ -1372,7 +1375,8 @@
     function clearRecipe(key) {
         delete currentPlan[key];
         savePlan(currentPlan);
-        renderPlan();
+        if (selectedDate) renderDayPanel(selectedDate);
+        renderCalendar();
     }
     function hideAC(key) { document.getElementById('ac-'+key)?.classList.remove('show'); }
     function hideACDelayed(key) { setTimeout(() => hideAC(key), 200); }
