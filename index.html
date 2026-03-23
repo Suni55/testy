@@ -2089,8 +2089,12 @@
     function goToRecipe(name) {
         switchTab('recipes');
         setTimeout(() => {
-            const inp = document.querySelector('#recipes-container .search-input');
-            if (inp) { inp.value = name; filterRecipes(name); window.scrollTo({top:0,behavior:'smooth'}); }
+            const inp = document.getElementById('recipe-search');
+            if (inp) {
+                inp.value = name;
+                filterRecipes();
+                window.scrollTo({top:0,behavior:'smooth'});
+            }
         }, 120);
     }
 
