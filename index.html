@@ -299,8 +299,8 @@
         /* USTAWIENIA */
         /* EDYTOR PRZEPISÓW */
         .editor-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7);
-            z-index:10001; display:none; align-items:flex-end; justify-content:center; }
-        .editor-overlay.active { display:flex; }
+            z-index:10001; display:none; align-items:flex-end; justify-content:center; pointer-events:none; }
+        .editor-overlay.active { display:flex; pointer-events:all; }
         .editor-box { background:var(--bg-card); border-radius:20px 20px 0 0; width:100%; max-width:600px;
             max-height:92vh; display:flex; flex-direction:column; overflow:hidden; }
         .editor-header { display:flex; align-items:center; justify-content:space-between;
@@ -429,52 +429,6 @@
         .notif-status.warn { background: rgba(255,179,71,0.12); color: #E09000; }
 
         /* USTAWIENIA */
-        /* EDYTOR PRZEPISÓW */
-        .editor-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7);
-            z-index:10001; display:none; align-items:flex-end; justify-content:center; }
-        .editor-overlay.active { display:flex; }
-        .editor-box { background:var(--bg-card); border-radius:20px 20px 0 0; width:100%; max-width:600px;
-            max-height:92vh; display:flex; flex-direction:column; overflow:hidden; }
-        .editor-header { display:flex; align-items:center; justify-content:space-between;
-            padding:16px 20px 12px; border-bottom:1px solid var(--border); flex-shrink:0; }
-        .editor-title { font-family:'Bricolage Grotesque',sans-serif; font-size:18px; font-weight:700; color:var(--text); }
-        .editor-close { background:none; border:none; font-size:22px; cursor:pointer; color:var(--text-secondary); padding:0; line-height:1; }
-        .editor-body { flex:1; overflow-y:auto; padding:16px 20px; -webkit-overflow-scrolling:touch; }
-        .editor-footer { padding:12px 20px 20px; border-top:1px solid var(--border); display:flex; gap:8px; flex-shrink:0; }
-        .editor-field { margin-bottom:16px; }
-        .editor-label { font-size:12px; font-weight:700; color:var(--text-secondary); text-transform:uppercase;
-            letter-spacing:.5px; margin-bottom:6px; }
-        .editor-input { width:100%; padding:10px 12px; border:2px solid var(--border); border-radius:10px;
-            font-size:15px; font-family:inherit; font-weight:500; color:var(--text); background:var(--bg-main);
-            outline:none; transition:border-color .2s; box-sizing:border-box; }
-        .editor-input:focus { border-color:var(--primary); }
-        body.dark .editor-input { background:#2a2a2a; }
-        .editor-input.small { font-size:13px; padding:8px 10px; }
-        .editor-toggle-row { display:flex; gap:8px; }
-        .editor-toggle-btn { flex:1; padding:10px; border:2px solid var(--border); border-radius:10px;
-            background:var(--bg); color:var(--text-secondary); font-size:13px; font-weight:700;
-            cursor:pointer; text-align:center; transition:all .15s; font-family:inherit; }
-        .editor-toggle-btn.active { background:var(--primary); color:white; border-color:var(--primary); }
-        .editor-macro-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:8px; }
-        .ing-row { display:grid; grid-template-columns:1fr 80px 70px 32px; gap:6px; align-items:center; margin-bottom:6px; }
-        .step-row { display:grid; grid-template-columns:24px 1fr 32px; gap:6px; align-items:flex-start; margin-bottom:6px; }
-        .step-num { font-size:13px; font-weight:700; color:var(--primary); padding-top:10px; text-align:center; }
-        .editor-add-btn { width:100%; padding:9px; border:2px dashed var(--border); border-radius:10px;
-            background:none; color:var(--text-secondary); font-size:13px; font-weight:600; cursor:pointer;
-            transition:all .15s; font-family:inherit; margin-top:4px; }
-        .editor-add-btn:hover { border-color:var(--primary); color:var(--primary); }
-        .editor-del-btn { background:none; border:none; font-size:18px; cursor:pointer; color:#ef4444;
-            padding:0; line-height:1; opacity:.7; transition:opacity .15s; }
-        .editor-del-btn:hover { opacity:1; }
-        .editor-save-btn { flex:1; padding:14px; background:var(--primary); color:white; border:none;
-            border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity .15s; }
-        .editor-save-btn:hover { opacity:.85; }
-        .editor-delete-btn { padding:14px 18px; background:#ef4444; color:white; border:none;
-            border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity .15s; }
-        .editor-delete-btn:hover { opacity:.85; }
-        .recipe-edit-btn { background:none; border:none; font-size:16px; cursor:pointer; padding:0 4px;
-            line-height:1; transition:transform .2s; color:var(--text-secondary); flex-shrink:0; }
-        .recipe-edit-btn:active { transform:scale(1.2); }
 
         /* STATYSTYKI HISTORII */
         .stats-section { background:var(--bg-card); border-radius:16px; padding:16px; margin-top:14px; box-shadow:var(--shadow); }
@@ -561,8 +515,8 @@
         .notif-status.warn { background: rgba(255,179,71,0.12); color: #E09000; }
 
         /* SYNCHRONIZACJA */
-        .sync-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .sync-overlay.active { display: flex; }
+        .sync-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; pointer-events: none; }
+        .sync-overlay.active { display: flex; pointer-events: all; }
         .sync-box { background: white; border-radius: 20px; padding: 28px; max-width: 420px; width: 100%; box-shadow: var(--shadow-lg); }
         .sync-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 16px; }
         .sync-option { background: var(--bg-main); padding: 18px; border-radius: 12px; margin-bottom: 12px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
@@ -1842,7 +1796,79 @@
         showToast(oldName ? '✅ Przepis zaktualizowany!' : '✅ Przepis dodany!');
     }
 
-    // ─── EDYTOR PRZEPISÓW ───────────────────────────────────────
+    function editorDelete() {
+        const name = editorRecipe;
+        if (!name) return;
+        if (!confirm(`Usunąć przepis "${name}"?`)) return;
+
+        // Usuń z runtime
+        delete PRZEPISY_DATA.skladniki[name];
+        delete PRZEPISY_DATA.instrukcje[name];
+        delete NUTRITION_DATA[name];
+        PRZEPISY_DATA.przepisy = PRZEPISY_DATA.przepisy.filter(p => p !== name);
+        const obiadIdx = OBIADY_LIST.indexOf(name);
+        if (obiadIdx !== -1) OBIADY_LIST.splice(obiadIdx, 1);
+
+        // Zapisz do listy usuniętych (persistent)
+        const deleted = loadDeletedRecipes();
+        if (!deleted.includes(name)) deleted.push(name);
+        saveDeletedRecipes(deleted);
+
+        // Usuń też z custom jeśli był tam
+        const customs = loadCustomRecipes().filter(r => r.name !== name);
+        saveCustomRecipes(customs);
+
+        // Usuń z planu jeśli był użyty
+        let planChanged = false;
+        Object.keys(currentPlan).forEach(k => {
+            if (currentPlan[k] === name) { delete currentPlan[k]; planChanged = true; }
+        });
+        if (planChanged) savePlan(currentPlan);
+
+        closeEditor();
+        renderRecipes();
+        showToast('🗑️ Przepis usunięty');
+    }
+
+    const DELETED_RECIPES_KEY = 'deletedRecipes';
+    function loadDeletedRecipes() {
+        try { return JSON.parse(localStorage.getItem(DELETED_RECIPES_KEY) || '[]'); } catch(e) { return []; }
+    }
+    function saveDeletedRecipes(arr) {
+        localStorage.setItem(DELETED_RECIPES_KEY, JSON.stringify(arr));
+    }
+
+    function restoreCustomRecipes() {
+        // 1. Usuń przepisy oznaczone jako skasowane
+        const deleted = loadDeletedRecipes();
+        deleted.forEach(name => {
+            delete PRZEPISY_DATA.skladniki[name];
+            delete PRZEPISY_DATA.instrukcje[name];
+            delete NUTRITION_DATA[name];
+            PRZEPISY_DATA.przepisy = PRZEPISY_DATA.przepisy.filter(p => p !== name);
+            const idx = OBIADY_LIST.indexOf(name);
+            if (idx !== -1) OBIADY_LIST.splice(idx, 1);
+        });
+
+        // 2. Dodaj/nadpisz przepisami własnymi
+        const customs = loadCustomRecipes();
+        customs.forEach(d => {
+            if (!d.name) return;
+            if (!PRZEPISY_DATA.przepisy.includes(d.name)) PRZEPISY_DATA.przepisy.push(d.name);
+            PRZEPISY_DATA.skladniki[d.name] = d.skladniki || [];
+            PRZEPISY_DATA.instrukcje[d.name] = (d.kroki || []).map((k,i) => `${i+1}. ${k}`);
+            NUTRITION_DATA[d.name] = { kcal: d.kcal||0, b: d.b||0, w: d.w||0, t: d.t||0 };
+            if (d.isObiad && !OBIADY_LIST.includes(d.name)) OBIADY_LIST.push(d.name);
+            else if (!d.isObiad) {
+                const idx = OBIADY_LIST.indexOf(d.name);
+                if (idx !== -1) OBIADY_LIST.splice(idx, 1);
+            }
+        });
+
+        if (customs.length || deleted.length) {
+            PRZEPISY_DATA.przepisy.sort((a,b) => a.localeCompare(b,'pl'));
+        }
+    }
 
     // ─── STATYSTYKI HISTORII ────────────────────────────────────
     let statsRange = '30'; // '7' | '30' | 'all'
