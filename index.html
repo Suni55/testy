@@ -1342,8 +1342,13 @@
         currentPlan = remotePlan;
         localStorage.setItem('mealPlan', JSON.stringify(currentPlan));
 
-        // Zakupy
-        const remoteChecked = (checkedRows || []).filter(r => r.checked).map(r => r.item_key);
+        // Zakupy - odkoduj base64 z powrotem do oryginalnych kluczy
+        const remoteChecked = (checkedRows || [])
+            .filter(r => r.checked)
+            .map(r => {
+                try { return decodeURIComponent(escape(atob(r.item_key))); }
+                catch(e) { return r.item_key; } // fallback dla starych wpisów
+            });
         checkedItems = remoteChecked;
         localStorage.setItem('checkedItems', JSON.stringify(checkedItems));
         isSyncing = false;
@@ -1379,19 +1384,21 @@
     // ── Push: zakupy ─────────────────────────────────────────────
     async function pushCheckedItem(itemKey, checked) {
         if (!syncPairId || isSyncing) return;
+        // Enkoduj klucz do base64 żeby uniknąć znaków specjalnych (|, spacje itp.)
+        const safeKey = btoa(unescape(encodeURIComponent(itemKey)));
         try {
             if (checked) {
                 await sbFetch('shopping_checked', {
                     method: 'POST',
                     headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
                     body: JSON.stringify({
-                        pair_id: syncPairId, item_key: itemKey,
+                        pair_id: syncPairId, item_key: safeKey,
                         checked: true, updated_at: new Date().toISOString()
                     })
                 });
             } else {
                 await sbFetch('shopping_checked?pair_id=eq.' + syncPairId +
-                    '&item_key=eq.' + encodeURIComponent(itemKey), {
+                    '&item_key=eq.' + encodeURIComponent(safeKey), {
                     method: 'DELETE', headers: { 'Prefer': '' }
                 });
             }
@@ -1428,7 +1435,12 @@
                 if (isSyncing) return;
                 isSyncing = true;
                 const { eventType, new: rec, old: oldRec } = payload;
-                const key = rec ? rec.item_key : oldRec.item_key;
+                const rawKey = rec ? rec.item_key : oldRec.item_key;
+                // Odkoduj base64
+                let key;
+                try { key = decodeURIComponent(escape(atob(rawKey))); }
+                catch(e) { key = rawKey; }
+
                 if (eventType === 'DELETE' || (rec && !rec.checked)) {
                     checkedItems = checkedItems.filter(i => i !== key);
                 } else if (!checkedItems.includes(key)) {
@@ -1830,48 +1842,7 @@
         showToast(oldName ? '✅ Przepis zaktualizowany!' : '✅ Przepis dodany!');
     }
 
-    function editorDelete() {
-        const name = editorRecipe;
-        if (!name) return;
-        if (!confirm(`Usunąć przepis "${name}"?`)) return;
-
-        // Usuń z runtime
-        delete PRZEPISY_DATA.skladniki[name];
-        delete PRZEPISY_DATA.instrukcje[name];
-        delete NUTRITION_DATA[name];
-        PRZEPISY_DATA.przepisy = PRZEPISY_DATA.przepisy.filter(p => p !== name);
-        const obiadIdx = OBIADY_LIST.indexOf(name);
-        if (obiadIdx !== -1) OBIADY_LIST.splice(obiadIdx, 1);
-
-        // Usuń z custom
-        const customs = loadCustomRecipes().filter(r => r.name !== name);
-        saveCustomRecipes(customs);
-
-        // Usuń z planu jeśli był użyty
-        let planChanged = false;
-        Object.keys(currentPlan).forEach(k => {
-            if (currentPlan[k] === name) { delete currentPlan[k]; planChanged = true; }
-        });
-        if (planChanged) savePlan(currentPlan);
-
-        closeEditor();
-        renderRecipes();
-        showToast('🗑️ Przepis usunięty');
-    }
-
-    // Przywróć custom recipes po starcie
-    function restoreCustomRecipes() {
-        const customs = loadCustomRecipes();
-        customs.forEach(d => {
-            if (!d.name) return;
-            if (!PRZEPISY_DATA.przepisy.includes(d.name)) PRZEPISY_DATA.przepisy.push(d.name);
-            PRZEPISY_DATA.skladniki[d.name] = d.skladniki || [];
-            PRZEPISY_DATA.instrukcje[d.name] = (d.kroki || []).map((k,i) => `${i+1}. ${k}`);
-            NUTRITION_DATA[d.name] = { kcal: d.kcal||0, b: d.b||0, w: d.w||0, t: d.t||0 };
-            if (d.isObiad && !OBIADY_LIST.includes(d.name)) OBIADY_LIST.push(d.name);
-        });
-        if (customs.length) PRZEPISY_DATA.przepisy.sort((a,b) => a.localeCompare(b,'pl'));
-    }
+    // ─── EDYTOR PRZEPISÓW ───────────────────────────────────────
 
     // ─── STATYSTYKI HISTORII ────────────────────────────────────
     let statsRange = '30'; // '7' | '30' | 'all'
